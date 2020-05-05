@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createUrlParams } from "../utils/helpers";
+import { API_KEY, BASE_URL } from "../utils/constants";
 
 const useMoviesResults = () => {
   const [movies, setMovies] = useState([]);
@@ -28,12 +29,11 @@ const useMoviesResults = () => {
 
   const getMovies = queryParams => {
     const urlParams = createUrlParams(queryParams);
-    const baseUrl = "https://api.themoviedb.org/3/search/movie";
-    const apiKey = "c9699c83834bc31ef87390d9331e4c96";
-    const url = `${baseUrl}?api_key=${apiKey}&${urlParams}`;
+    const url = `${BASE_URL}search/movie?api_key=${API_KEY}&${urlParams}`;
     fetch(url)
       .then(res => res.json())
       .then(response => handleSetResponse(response))
+      // todo: handle errors
       .catch(err => console.log(err));
   };
 
