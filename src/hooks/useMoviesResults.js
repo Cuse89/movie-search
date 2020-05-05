@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { createUrlParams } from "../utils/helpers";
 
-const useMovieSearch = () => {
+const useMoviesResults = () => {
   const [movies, setMovies] = useState([]);
+  const [pagination, setPagination] = useState({});
 
   const modelMovies = movies =>
     // only obtain required values
@@ -11,10 +12,18 @@ const useMovieSearch = () => {
       return { id, title };
     });
 
-  const handleSetMovies = movies => {
-    if (movies.results.length > 0) {
-      setMovies(modelMovies(movies.results));
+  const handleSetResponse = response => {
+    const { results, page, total_results, total_pages } = response;
+    if (results.length > 0) {
+      setMovies(modelMovies(results));
+    } else {
+      setMovies([]);
     }
+    setPagination({
+      page,
+      totalPages: total_pages,
+      totalResults: total_results
+    });
   };
 
   const getMovies = queryParams => {
@@ -24,11 +33,11 @@ const useMovieSearch = () => {
     const url = `${baseUrl}?api_key=${apiKey}&${urlParams}`;
     fetch(url)
       .then(res => res.json())
-      .then(response => handleSetMovies(response))
+      .then(response => handleSetResponse(response))
       .catch(err => console.log(err));
   };
 
-  return { movies, getMovies };
+  return { movies, getMovies, pagination };
 };
 
-export default useMovieSearch;
+export default useMoviesResults;
