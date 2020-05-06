@@ -1,10 +1,15 @@
 import { useState } from "react";
-import { createUrlParams } from "../utils/helpers";
+import {createUrlParams, getUrlParam} from "../utils/helpers";
 import { API_KEY, BASE_URL } from "../utils/constants";
 
 const useMoviesResults = () => {
   const [movies, setMovies] = useState([]);
-  const [pagination, setPagination] = useState({});
+  const [pagination, setPagination] = useState({
+    page: getUrlParam("page") || 1,
+    totalPages: 0,
+    totalResults: 0
+  });
+
 
   const modelMovies = movies =>
     // only obtain required values
@@ -14,6 +19,7 @@ const useMoviesResults = () => {
     });
 
   const handleSetResponse = response => {
+    console.log({response})
     const { results, page, total_results, total_pages } = response;
     if (results.length > 0) {
       setMovies(modelMovies(results));
