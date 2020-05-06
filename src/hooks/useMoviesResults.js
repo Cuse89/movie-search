@@ -4,7 +4,11 @@ import { API_KEY, BASE_URL } from "../utils/constants";
 
 const useMoviesResults = () => {
   const [movies, setMovies] = useState([]);
-  const [pagination, setPagination] = useState({});
+  const [pagination, setPagination] = useState({
+    page: 1,
+    totalPages: 0,
+    totalResults: 0
+  });
 
   const modelMovies = movies =>
     // only obtain required values
