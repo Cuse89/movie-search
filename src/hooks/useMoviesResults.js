@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { createUrlParams } from "../utils/helpers";
+import {createUrlParams, getUrlParam} from "../utils/helpers";
 import { API_KEY, BASE_URL } from "../utils/constants";
 
 const useMoviesResults = () => {
   const [movies, setMovies] = useState([]);
   const [pagination, setPagination] = useState({
-    page: 1,
+    page: getUrlParam("page") || 1,
     totalPages: 0,
     totalResults: 0
   });
