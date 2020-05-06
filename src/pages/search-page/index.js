@@ -3,10 +3,11 @@ import useMoviesResults from "hooks/useMoviesResults";
 import InputForm from "components/input-form";
 import ResultsList from "components/results-list";
 import MovieItem from "components/movie-item";
-import { DEFAULT_RESULTS_AMOUNT, RESULTS_INTERVALS } from "utils/constants";
+import { DEFAULT_RESULTS_AMOUNT } from "utils/constants";
 
 const SearchPage = () => {
-  const { getMovies, movies } = useMoviesResults();
+  const { getMovies, movies, pagination } = useMoviesResults();
+  const { page, totalResults } = pagination;
   const [query, setQuery] = useState("");
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const SearchPage = () => {
     console.log("on movie click", id);
   };
 
-  const onPaginationChange = ({ page, resultPerPage }) => {
+  const onPaginationChange = ({ page }) => {
     getMovies({ query, page });
   };
 
@@ -43,9 +44,10 @@ const SearchPage = () => {
             onClick={onMovieClick}
           />
         )}
+        page={page}
+        resultsPerPage={DEFAULT_RESULTS_AMOUNT}
         onPaginationChange={onPaginationChange}
-        resultsIntervals={RESULTS_INTERVALS}
-        defaultResultsAmount={DEFAULT_RESULTS_AMOUNT}
+        totalResults={totalResults}
       />
     </Fragment>
   );

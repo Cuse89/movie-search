@@ -5,13 +5,12 @@ const ResultsList = ({
   className,
   results,
   resultItem,
-  resultsIntervals,
   onPaginationChange,
-  defaultResultsPerPage
+  page,
+  resultsPerPage,
+  totalResults
 }) => {
-  const [page, setPage] = useState(1);
-  const [resultsPerPage, setResultsPerPage] = useState(defaultResultsPerPage);
-  const showPagination = resultsPerPage && results.length > resultsPerPage;
+  const showPagination = resultsPerPage && results.length < totalResults;
   const getResultsList = () => {
     // Used for loop rather than map, as to not iterate unnecessarily if results length is greater than resultsPerPage
     const items = [];
@@ -21,13 +20,11 @@ const ResultsList = ({
     return items;
   };
 
-  const onPreviousPageClick = () => setPage(page - 1);
+  const onPreviousPageClick = () =>
+    onPaginationChange({ page: page - 1, resultsPerPage });
 
-  const onNextPageClick = () => setPage(page + 1);
-
-  useEffect(() => {
-    onPaginationChange({ page, resultsPerPage });
-  }, [page, resultsPerPage]);
+  const onNextPageClick = () =>
+    onPaginationChange({ page: page + 1, resultsPerPage });
 
   return (
     <div className={className}>
@@ -37,8 +34,6 @@ const ResultsList = ({
           onPreviousPageClick={onPreviousPageClick}
           onNextPageClick={onNextPageClick}
           page={page}
-          resultsIntervals={resultsIntervals}
-          onAmountChange={setResultsPerPage}
         />
       )}
     </div>

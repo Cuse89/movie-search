@@ -9,7 +9,7 @@ const useMoviesResults = () => {
     totalPages: 0,
     totalResults: 0
   });
-  console.log("movies", movies)
+
 
   const modelMovies = movies =>
     // only obtain required values
@@ -19,6 +19,7 @@ const useMoviesResults = () => {
     });
 
   const handleSetResponse = response => {
+    console.log({response})
     const { results, page, total_results, total_pages } = response;
     if (results.length > 0) {
       setMovies(modelMovies(results));
