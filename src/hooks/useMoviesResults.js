@@ -9,6 +9,7 @@ const useMoviesResults = () => {
     totalPages: 0,
     totalResults: 0
   });
+  console.log("movies", movies)
 
   const modelMovies = movies =>
     // only obtain required values
