@@ -1,10 +1,10 @@
 import React from "react";
-import MovieDescription from "components/movie-description";
 import { useParams } from "react-router-dom";
+import MovieDescription from "components/movie-description";
+import withBackArrow from "hocs/withBackArrow";
 
 const MoviePage = ({ history }) => {
   const { id } = useParams();
-  console.log("querry", id);
 
   return (
     <div onClick={() => history.goBack()}>
@@ -13,4 +13,4 @@ const MoviePage = ({ history }) => {
   );
 };
 
-export default MoviePage;
+export default withBackArrow({withText: true})(MoviePage);
