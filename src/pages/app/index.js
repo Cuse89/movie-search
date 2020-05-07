@@ -9,7 +9,7 @@ const App = () => {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={SearchPage} />
-          <Route path="/movie" component={MoviePage}/>
+          <Route path="/movie/:id" component={MoviePage}/>
         </Switch>
       </BrowserRouter>
     </div>
