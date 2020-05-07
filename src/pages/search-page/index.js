@@ -24,7 +24,7 @@ const SearchPage = ({ history }) => {
   };
 
   const onMovieClick = id => {
-    history.push("./movie");
+    history.push(`./movie/${id}`);
   };
 
   return (
@@ -33,6 +33,7 @@ const SearchPage = ({ history }) => {
         placeholder={"Search for a movie..."}
         onChange={onQueryChange}
       />
+      <h3>Showing Movies: {query}</h3>
       {query && (
         <ResultsList
           results={movies}
