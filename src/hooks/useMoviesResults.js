@@ -18,7 +18,6 @@ const useMoviesResults = () => {
     });
 
   const handleSetResponse = response => {
-    console.log({response})
     const { results, page, total_results, total_pages } = response;
     if (results.length > 0) {
       setMovies(modelMovies(results));
@@ -33,7 +32,6 @@ const useMoviesResults = () => {
   };
 
   const getMovies = queryParams => {
-    console.log("get movies", queryParams)
     const urlParams = createUrlParams(queryParams);
     const url = `${BASE_URL}search/movie?api_key=${API_KEY}&${urlParams}`;
     fetch(url)

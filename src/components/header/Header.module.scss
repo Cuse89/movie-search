@@ -1,0 +1,16 @@
+@import 'src/styles/base/variables';
+
+.root {
+  text-align: center;
+  background: $dark-grey;
+  padding: 5px;
+
+  a {
+    text-decoration: none;
+  }
+
+  .title {
+    color: $off-white;
+    margin: 0;
+  }
+}

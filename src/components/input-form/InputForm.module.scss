@@ -1,8 +1,8 @@
 @import "src/styles/base/variables";
 
 .root {
-  width: 195px;
   display: flex;
+  margin-top: 10px;
 
   input {
     height: 30px;
@@ -13,7 +13,4 @@
     margin-left: 5px;
   }
 
-  .isDisabled {
-    opacity: 0.3;
-  }
 }

@@ -31,17 +31,20 @@ const ResultsList = ({
     onPaginationChange(page + 1);
   };
 
+  const pagination = (
+    <Pagination
+      onPreviousPageClick={onPreviousPageClick}
+      onNextPageClick={onNextPageClick}
+      page={page}
+      totalPages={totalPages}
+    />
+  );
+
   return (
     <div className={className}>
+      {showPagination && pagination}
       {results.length > 0 && getResultsList()}
-      {showPagination && (
-        <Pagination
-          onPreviousPageClick={onPreviousPageClick}
-          onNextPageClick={onNextPageClick}
-          page={page}
-          totalPages={totalPages}
-        />
-      )}
+      {showPagination && pagination}
     </div>
   );
 };

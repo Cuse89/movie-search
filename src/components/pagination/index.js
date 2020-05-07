@@ -2,6 +2,8 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome/index";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
+import styles from "./Pagination.module.scss"
+
 const Pagination = ({
   page,
   onPreviousPageClick,
@@ -9,13 +11,13 @@ const Pagination = ({
   totalPages
 }) => {
   return (
-    <div>
+    <div className={styles.root}>
       {page > 1 && (
-        <FontAwesomeIcon icon={faArrowLeft} onClick={onPreviousPageClick} />
+        <FontAwesomeIcon className={styles.leftArrow} icon={faArrowLeft} onClick={onPreviousPageClick} />
       )}
-      {page}
+      Page {page} out of {totalPages}
       {page < totalPages && (
-        <FontAwesomeIcon icon={faArrowRight} onClick={onNextPageClick} />
+        <FontAwesomeIcon className={styles.rightArrow} icon={faArrowRight} onClick={onNextPageClick} />
       )}
     </div>
   );

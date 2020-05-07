@@ -1,16 +1,16 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useParams } from "react-router-dom";
 import MovieDescription from "components/movie-description";
 import withBackArrow from "hocs/withBackArrow";
 
-const MoviePage = ({ history }) => {
+const MoviePage = () => {
   const { id } = useParams();
 
   return (
-    <div onClick={() => history.goBack()}>
+    <Fragment>
       <MovieDescription id={id} />
-    </div>
+    </Fragment>
   );
 };
 
-export default withBackArrow({withText: true})(MoviePage);
+export default withBackArrow({ withText: true })(MoviePage);
