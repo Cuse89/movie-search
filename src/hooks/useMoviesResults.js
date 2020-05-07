@@ -1,14 +1,15 @@
 import { useState } from "react";
-import {createUrlParams, getUrlParam} from "../utils/helpers";
+import {createUrlParams, getUrlSearchParam} from "../utils/helpers";
 import { API_KEY, BASE_URL } from "../utils/constants";
 
 const useMoviesResults = () => {
   const [movies, setMovies] = useState([]);
   const [pagination, setPagination] = useState({
-    page: getUrlParam("page") || 1,
+    page: getUrlSearchParam("page") || 1,
     totalPages: 0,
     totalResults: 0
   });
+  console.log({pagination})
 
 
   const modelMovies = movies =>

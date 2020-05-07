@@ -3,7 +3,7 @@ export const createUrlParams = params =>
         .map(paramKey => `${paramKey}=${params[paramKey]}`)
         .join("&");
 
-export const getUrlParam = key => {
+export const getUrlSearchParam = key => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     return urlParams.get(key);
