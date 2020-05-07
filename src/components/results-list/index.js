@@ -1,5 +1,4 @@
 import React from "react";
-import { useQueryState } from 'use-location-state'
 import Pagination from "components/pagination";
 
 const ResultsList = ({
@@ -8,9 +7,9 @@ const ResultsList = ({
   resultItem,
   onPaginationChange,
   resultsPerPage,
-  totalResults
+  totalResults,
+  page
 }) => {
-  const [page, setPage] = useQueryState("page", 1);
   const showPagination = resultsPerPage && results.length < totalResults;
   const getResultsList = () => {
     // Used for loop rather than map, as to not iterate unnecessarily if results length is greater than resultsPerPage
@@ -22,15 +21,11 @@ const ResultsList = ({
   };
 
   const onPreviousPageClick = () => {
-    const prevPage = page - 1;
-    setPage(prevPage);
-    onPaginationChange({ page: prevPage, resultsPerPage });
+    onPaginationChange(page - 1);
   };
 
   const onNextPageClick = () => {
-    const nextPage = page + 1;
-    setPage(nextPage);
-    onPaginationChange({ page: page + 1, resultsPerPage });
+    onPaginationChange(page + 1);
   };
 
   return (

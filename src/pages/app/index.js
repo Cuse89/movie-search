@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import SearchPage from "pages/search-page";
+import MoviePage from "pages/movie-page";
 
 const App = () => {
   return (
@@ -8,6 +9,7 @@ const App = () => {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={SearchPage} />
+          <Route path="/movie" component={MoviePage}/>
         </Switch>
       </BrowserRouter>
     </div>

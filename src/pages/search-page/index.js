@@ -10,44 +10,46 @@ const SearchPage = ({ history }) => {
   const { getMovies, movies, pagination } = useMoviesResults();
   const { totalResults } = pagination;
   const [query, setQuery] = useQueryState("query", "");
+  const [page, setPage] = useQueryState("page", 1);
 
   useEffect(() => {
     if (query) {
-      getMovies({ query });
+      getMovies({ query, page });
     }
-  }, [query]);
+  }, [query, page]);
 
-  const onSearchSubmit = query => {
+  const onQueryChange = query => {
+    setPage(1);
     setQuery(query);
   };
 
-  const onMovieClick = id => {};
-
-  const onPaginationChange = ({ page }) => {
-    getMovies({ query, page });
+  const onMovieClick = id => {
+    history.push("./movie");
   };
 
   return (
     <Fragment>
       <InputForm
         placeholder={"Search for a movie..."}
-        onSubmit={onSearchSubmit}
+        onChange={onQueryChange}
       />
-
-      <ResultsList
-        results={movies}
-        resultItem={({ id, title }) => (
-          <MovieItem
-            key={`movieItem${id}`}
-            id={id}
-            title={title}
-            onClick={onMovieClick}
-          />
-        )}
-        resultsPerPage={DEFAULT_RESULTS_AMOUNT}
-        onPaginationChange={onPaginationChange}
-        totalResults={totalResults}
-      />
+      {query && (
+        <ResultsList
+          results={movies}
+          resultItem={({ id, title }) => (
+            <MovieItem
+              key={`movieItem${id}`}
+              id={id}
+              title={title}
+              onClick={onMovieClick}
+            />
+          )}
+          page={page}
+          resultsPerPage={DEFAULT_RESULTS_AMOUNT}
+          onPaginationChange={setPage}
+          totalResults={totalResults}
+        />
+      )}
     </Fragment>
   );
 };
