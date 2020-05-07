@@ -8,13 +8,16 @@ const ResultsList = ({
   onPaginationChange,
   resultsPerPage,
   totalResults,
+  totalPages,
   page
 }) => {
   const showPagination = resultsPerPage && results.length < totalResults;
   const getResultsList = () => {
     // Used for loop rather than map, as to not iterate unnecessarily if results length is greater than resultsPerPage
     const items = [];
-    for (let i = 0; i < resultsPerPage; i++) {
+    const resultsAmount =
+      results.length < resultsPerPage ? results.length : resultsPerPage;
+    for (let i = 0; i < resultsAmount; i++) {
       items.push(resultItem(results[i]));
     }
     return items;
@@ -36,6 +39,7 @@ const ResultsList = ({
           onPreviousPageClick={onPreviousPageClick}
           onNextPageClick={onNextPageClick}
           page={page}
+          totalPages={totalPages}
         />
       )}
     </div>

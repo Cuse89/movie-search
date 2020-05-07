@@ -6,7 +6,7 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 const withBackArrow = ({ withText }) => WrappedComponent => ({ history }) => (
   <Fragment>
     <div onClick={() => history.goBack()}>
-      <FontAwesomeIcon icon={faArrowLeft} />
+      <FontAwesomeIcon icon={faArrowLeft} size={"2x"}/>
       {withText && "Go back"}
     </div>
     <WrappedComponent />

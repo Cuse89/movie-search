@@ -8,7 +8,7 @@ import { DEFAULT_RESULTS_AMOUNT } from "utils/constants";
 
 const SearchPage = ({ history }) => {
   const { getMovies, movies, pagination } = useMoviesResults();
-  const { totalResults } = pagination;
+  const { totalResults, totalPages } = pagination;
   const [query, setQuery] = useQueryState("query", "");
   const [page, setPage] = useQueryState("page", 1);
 
@@ -49,6 +49,7 @@ const SearchPage = ({ history }) => {
           resultsPerPage={DEFAULT_RESULTS_AMOUNT}
           onPaginationChange={setPage}
           totalResults={totalResults}
+          totalPages={totalPages}
         />
       )}
     </Fragment>
