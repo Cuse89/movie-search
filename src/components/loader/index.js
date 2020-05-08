@@ -34,7 +34,7 @@ Loader.defaultProps = {
   size: "medium",
   color: "darkBlue",
   isContained: false,
-  delay: 300
+  delay: 500
 };
 
 Loader.propTypes = {

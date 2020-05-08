@@ -30,7 +30,7 @@ const SearchPage = ({ history }) => {
     history.push(`./movie/${id}`);
   };
 
-  const showResults = query && movies.length > 0;
+  const showTitle = query && movies.length > 0;
 
   return (
     <div className={styles.root}>
@@ -38,9 +38,10 @@ const SearchPage = ({ history }) => {
         placeholder={"Search for a movie..."}
         onChange={onQueryChange}
       />
-      {showResults && (
-        <Loader show={isFetching}>
-          <h3>Showing Movies: {query}</h3>
+
+      {query && (
+        <Loader show={isFetching} >
+          {showTitle && <h3>Showing Movies: {query}</h3>}
           <ResultsList
             results={movies}
             resultItem={({ id, title }) => (
@@ -56,6 +57,7 @@ const SearchPage = ({ history }) => {
             onPaginationChange={setPage}
             totalResults={totalResults}
             totalPages={totalPages}
+            noResultsText={"No movies found."}
           />
         </Loader>
       )}

@@ -9,7 +9,8 @@ const ResultsList = ({
   resultsPerPage,
   totalResults,
   totalPages,
-  page
+  page,
+  noResultsText
 }) => {
   const showPagination = resultsPerPage && results.length < totalResults;
   const getResultsList = () => {
@@ -45,6 +46,7 @@ const ResultsList = ({
       {showPagination && pagination}
       {results.length > 0 && getResultsList()}
       {showPagination && pagination}
+      {noResultsText && results.length === 0 && <h3>{noResultsText}</h3>}
     </div>
   );
 };
