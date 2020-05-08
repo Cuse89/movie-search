@@ -1,16 +1,20 @@
-import React, {Fragment} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome/index";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
-const withBackArrow = ({ withText }) => WrappedComponent => ({ history }) => (
-  <Fragment>
-    <div onClick={() => history.goBack()}>
-      <FontAwesomeIcon icon={faArrowLeft} size={"2x"}/>
-      {withText && "Go back"}
+import styles from "./withGoBack.module.scss";
+
+const withBackArrow = ({ withText, className }) => WrappedComponent => ({
+  history
+}) => (
+  <div className={className}>
+    <div className={styles.goBack} onClick={() => history.goBack()}>
+      <FontAwesomeIcon icon={faArrowLeft} size={"1x"} />
+      {withText && <p className={styles.goBackText}>Go back</p>}
     </div>
     <WrappedComponent />
-  </Fragment>
+  </div>
 );
 
 withBackArrow.defaultProps = {
@@ -18,7 +22,8 @@ withBackArrow.defaultProps = {
 };
 
 withBackArrow.propTypes = {
-  withText: PropTypes.bool
+  withText: PropTypes.bool,
+  className: PropTypes.string
 };
 
 export default withBackArrow;
