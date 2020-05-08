@@ -33,6 +33,8 @@ const MovieDescription = ({ id }) => {
           <MovieImage path={posterPath} />
         </Fragment>
       )}
+
+      {hasError && <h3>There was an error, please try again.</h3>}
     </Loader>
   );
 };
