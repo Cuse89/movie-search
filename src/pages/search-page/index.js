@@ -5,11 +5,12 @@ import InputForm from "components/input-form";
 import ResultsList from "components/results-list";
 import MovieItem from "components/movie-item";
 import { DEFAULT_RESULTS_AMOUNT } from "utils/constants";
+import Loader from "components/loader";
 
 import styles from "./MoviePage.module.scss";
 
 const SearchPage = ({ history }) => {
-  const { getMovies, movies, pagination } = useMoviesResults();
+  const { getMovies, movies, pagination, isFetching } = useMoviesResults();
   const { totalResults, totalPages } = pagination;
   const [query, setQuery] = useQueryState("query", "");
   const [page, setPage] = useQueryState("page", 1);
@@ -29,7 +30,7 @@ const SearchPage = ({ history }) => {
     history.push(`./movie/${id}`);
   };
 
-  const showTitle = query && movies.length > 0;
+  const showResults = query && movies.length > 0;
 
   return (
     <div className={styles.root}>
@@ -37,24 +38,26 @@ const SearchPage = ({ history }) => {
         placeholder={"Search for a movie..."}
         onChange={onQueryChange}
       />
-      {showTitle && <h3>Showing Movies: {query}</h3>}
-      {query && (
-        <ResultsList
-          results={movies}
-          resultItem={({ id, title }) => (
-            <MovieItem
-              key={`movieItem${id}`}
-              id={id}
-              title={title}
-              onClick={onMovieClick}
-            />
-          )}
-          page={page}
-          resultsPerPage={DEFAULT_RESULTS_AMOUNT}
-          onPaginationChange={setPage}
-          totalResults={totalResults}
-          totalPages={totalPages}
-        />
+      {showResults && (
+        <Loader show={isFetching}>
+          <h3>Showing Movies: {query}</h3>
+          <ResultsList
+            results={movies}
+            resultItem={({ id, title }) => (
+              <MovieItem
+                key={`movieItem${id}`}
+                id={id}
+                title={title}
+                onClick={onMovieClick}
+              />
+            )}
+            page={page}
+            resultsPerPage={DEFAULT_RESULTS_AMOUNT}
+            onPaginationChange={setPage}
+            totalResults={totalResults}
+            totalPages={totalPages}
+          />
+        </Loader>
       )}
     </div>
   );

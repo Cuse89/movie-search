@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {createUrlParams, getUrlSearchParam} from "../utils/helpers";
+import { createUrlParams, getUrlSearchParam } from "../utils/helpers";
 import { API_KEY, BASE_URL } from "../utils/constants";
 
 const useMoviesResults = () => {
@@ -9,6 +9,7 @@ const useMoviesResults = () => {
     totalPages: 0,
     totalResults: 0
   });
+  const [isFetching, setIsFetching] = useState(false);
 
   const modelMovies = movies =>
     // only obtain required values
@@ -34,14 +35,21 @@ const useMoviesResults = () => {
   const getMovies = queryParams => {
     const urlParams = createUrlParams(queryParams);
     const url = `${BASE_URL}search/movie?api_key=${API_KEY}&${urlParams}`;
+    setIsFetching(true);
     fetch(url)
       .then(res => res.json())
-      .then(response => handleSetResponse(response))
+      .then(response => {
+        setIsFetching(false);
+        handleSetResponse(response);
+      })
       // todo: handle errors
-      .catch(err => console.log(err));
+      .catch(err => {
+        setIsFetching(false);
+        console.log(err);
+      });
   };
 
-  return { movies, getMovies, pagination };
+  return { movies, getMovies, pagination, isFetching };
 };
 
 export default useMoviesResults;
