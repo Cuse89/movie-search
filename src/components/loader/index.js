@@ -23,7 +23,7 @@ const Loader = ({ show, size, color, isContained, delay, children }) => {
   if (show && !isDelaying) {
     return (
       <div className={cx({ [styles.contained]: isContained })}>
-        <img className={imgClassName} src="./tail-spin.svg" alt="loader" />
+        <img className={imgClassName} src="/tail-spin.svg" alt="loader" />
       </div>
     );
   }

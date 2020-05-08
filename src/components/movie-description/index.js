@@ -11,23 +11,25 @@ const MovieDescription = ({ id }) => {
   }, [id]);
 
   return (
-    <Loader show={isFetching} isContained={true}>
+    <Loader show={isFetching} >
       {title && (
         <Fragment>
           <h3>Title:</h3>
           {title}
         </Fragment>
       )}
-        {overview && <Fragment>
-            <h3>About:</h3>
-            {overview}
-        </Fragment>}
-        {posterPath && <Fragment>
-            <h3>image</h3>
-            {posterPath}
-        </Fragment>}
-
-
+      {overview && (
+        <Fragment>
+          <h3>About:</h3>
+          {overview}
+        </Fragment>
+      )}
+      {posterPath && (
+        <Fragment>
+          <h3>image</h3>
+          {posterPath}
+        </Fragment>
+      )}
     </Loader>
   );
 };
