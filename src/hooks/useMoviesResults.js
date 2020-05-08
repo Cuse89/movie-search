@@ -10,6 +10,7 @@ const useMoviesResults = () => {
     totalResults: 0
   });
   const [isFetching, setIsFetching] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   const modelMovies = movies =>
     // only obtain required values
@@ -42,14 +43,14 @@ const useMoviesResults = () => {
         setIsFetching(false);
         handleSetResponse(response);
       })
-      // todo: handle errors
       .catch(err => {
         setIsFetching(false);
-        console.log(err);
+        // handle other error actions here
+        setHasError(true);
       });
   };
 
-  return { movies, getMovies, pagination, isFetching };
+  return { movies, getMovies, pagination, isFetching, hasError };
 };
 
 export default useMoviesResults;

@@ -10,7 +10,9 @@ const ResultsList = ({
   totalResults,
   totalPages,
   page,
-  noResultsText
+  noResultsText,
+  hasError,
+  errorMessage
 }) => {
   const showPagination = resultsPerPage && results.length < totalResults;
   const getResultsList = () => {
@@ -41,12 +43,18 @@ const ResultsList = ({
     />
   );
 
+  const showNoResultsMessage =
+    noResultsText && results.length === 0 && !hasError;
+  const showErrorMessage = hasError && errorMessage;
+  console.log("show error messge", hasError, showErrorMessage);
+
   return (
     <div className={className}>
       {showPagination && pagination}
       {results.length > 0 && getResultsList()}
       {showPagination && pagination}
-      {noResultsText && results.length === 0 && <h3>{noResultsText}</h3>}
+      {showNoResultsMessage && <h3>{noResultsText}</h3>}
+      {showErrorMessage && <h3>{errorMessage}</h3>}
     </div>
   );
 };

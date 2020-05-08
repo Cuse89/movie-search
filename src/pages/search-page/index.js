@@ -10,7 +10,7 @@ import Loader from "components/loader";
 import styles from "./MoviePage.module.scss";
 
 const SearchPage = ({ history }) => {
-  const { getMovies, movies, pagination, isFetching } = useMoviesResults();
+  const { getMovies, movies, pagination, isFetching, hasError } = useMoviesResults();
   const { totalResults, totalPages } = pagination;
   const [query, setQuery] = useQueryState("query", "");
   const [page, setPage] = useQueryState("page", 1);
@@ -58,6 +58,8 @@ const SearchPage = ({ history }) => {
             totalResults={totalResults}
             totalPages={totalPages}
             noResultsText={"No movies found."}
+            hasError={hasError}
+            errorMessage={"Oops something went wrong, please try again."}
           />
         </Loader>
       )}

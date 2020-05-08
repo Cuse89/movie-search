@@ -4,10 +4,10 @@ import { API_KEY, BASE_URL } from "../utils/constants";
 const useMovie = () => {
   const [movie, setMovie] = useState({});
   const [isFetching, setIsFetching] = useState(false);
-console.log("is fetching", isFetching)
+  const [hasError, setHasError] = useState(false);
   const modelResponse = response => {
     const { title, overview, poster_path } = response;
-    return { title, overview, poster_path };
+    return { title, overview, posterPath: poster_path };
   };
 
   const handleSetResponse = response => {
@@ -23,14 +23,14 @@ console.log("is fetching", isFetching)
         setIsFetching(false);
         handleSetResponse(response);
       })
-      // todo: handle errors
       .catch(err => {
         setIsFetching(false);
-        console.log(err);
+        // handle other error actions here
+        setHasError(true);
       });
   };
 
-  return { movie, getMovie, isFetching };
+  return { movie, getMovie, isFetching, hasError };
 };
 
 export default useMovie;
