@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { API_KEY, BASE_URL } from "../utils/constants";
+import { API_KEY, BASE_URL, FETCH_STATUSES } from "utils/constants";
 
 const useMovie = () => {
   const [movie, setMovie] = useState({});
-
+  const [fetchStatus, setFetchStatus] = useState(FETCH_STATUSES.READY);
+  const [hasError, setHasError] = useState(false);
   const modelResponse = response => {
     const { title, overview, poster_path } = response;
-    return { title, overview, poster_path };
+    return { title, overview, posterPath: poster_path };
   };
 
   const handleSetResponse = response => {
@@ -15,14 +16,21 @@ const useMovie = () => {
 
   const getMovie = id => {
     const url = `${BASE_URL}movie/${id}?api_key=${API_KEY}`;
+    setFetchStatus(FETCH_STATUSES.FETCHING);
     fetch(url)
       .then(res => res.json())
-      .then(response => handleSetResponse(response))
-      // todo: handle errors
-      .catch(err => console.log(err));
+      .then(response => {
+        setFetchStatus(FETCH_STATUSES.COMPLETE);
+        handleSetResponse(response);
+      })
+      .catch(err => {
+        setFetchStatus(FETCH_STATUSES.COMPLETE);
+        // handle other error actions here
+        setHasError(true);
+      });
   };
 
-  return { movie, getMovie };
+  return { movie, getMovie, fetchStatus, hasError };
 };
 
 export default useMovie;

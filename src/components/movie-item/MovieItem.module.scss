@@ -1,0 +1,9 @@
+@import 'src/styles/base/variables';
+
+.root {
+  border: 1px $dark-grey solid;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 5px;
+  cursor: pointer;
+}

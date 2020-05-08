@@ -1,23 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import useMovie from "hooks/useMovie";
+import Loader from "components/loader";
+import MovieImage from "components/movie-image";
+import { FETCH_STATUSES } from "utils/constants";
 
 const MovieDescription = ({ id }) => {
-  const { movie, getMovie } = useMovie();
-  const { overview, poster_path, title } = movie;
+  const { movie, getMovie, fetchStatus, hasError } = useMovie();
+  const { overview, posterPath, title } = movie;
 
   useEffect(() => {
     getMovie(id);
   }, [id]);
 
   return (
-    <div>
-      <h3>Title:</h3>
-      {title}
-      <h3>About:</h3>
-      {overview}
-      <h3>image</h3>
-      {poster_path}
-    </div>
+    <Loader show={fetchStatus === FETCH_STATUSES.FETCHING}>
+      {title && (
+        <Fragment>
+          <h3>Title:</h3>
+          {title}
+        </Fragment>
+      )}
+      {overview && (
+        <Fragment>
+          <h3>About:</h3>
+          {overview}
+        </Fragment>
+      )}
+
+      {posterPath && (
+        <Fragment>
+          <h3>Image:</h3>
+          <MovieImage path={posterPath} />
+        </Fragment>
+      )}
+
+      {hasError && <h3>There was an error, please try again.</h3>}
+    </Loader>
   );
 };
 

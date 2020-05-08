@@ -1,14 +1,23 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import { useQueryState } from "use-location-state";
 import useMoviesResults from "hooks/useMoviesResults";
 import InputForm from "components/input-form";
 import ResultsList from "components/results-list";
 import MovieItem from "components/movie-item";
-import { DEFAULT_RESULTS_AMOUNT } from "utils/constants";
+import {DEFAULT_RESULTS_AMOUNT, FETCH_STATUSES} from "utils/constants";
+import Loader from "components/loader";
+
+import styles from "./SearchPage.module.scss";
 
 const SearchPage = ({ history }) => {
-  const { getMovies, movies, pagination } = useMoviesResults();
-  const { totalResults } = pagination;
+  const {
+    getMovies,
+    movies,
+    pagination,
+    fetchStatus,
+    hasError
+  } = useMoviesResults();
+  const { totalResults, totalPages } = pagination;
   const [query, setQuery] = useQueryState("query", "");
   const [page, setPage] = useQueryState("page", 1);
 
@@ -27,31 +36,45 @@ const SearchPage = ({ history }) => {
     history.push(`./movie/${id}`);
   };
 
+  const showTitle = query && movies.length > 0;
+
   return (
-    <Fragment>
+    <div className={styles.root}>
       <InputForm
         placeholder={"Search for a movie..."}
         onChange={onQueryChange}
       />
-      <h3>Showing Movies: {query}</h3>
+
       {query && (
-        <ResultsList
-          results={movies}
-          resultItem={({ id, title }) => (
-            <MovieItem
-              key={`movieItem${id}`}
-              id={id}
-              title={title}
-              onClick={onMovieClick}
-            />
+        <Loader show={fetchStatus === FETCH_STATUSES.FETCHING}>
+          {fetchStatus === FETCH_STATUSES.COMPLETE && (
+            <Fragment>
+              {showTitle && <h3>Showing Movies: {query}</h3>}
+              <ResultsList
+                results={movies}
+                resultItem={({ id, title }) => (
+                  <MovieItem
+                    key={`movieItem${id}`}
+                    id={id}
+                    title={title}
+                    onClick={onMovieClick}
+                  />
+                )}
+                page={page}
+                resultsPerPage={DEFAULT_RESULTS_AMOUNT}
+                onPaginationChange={setPage}
+                totalResults={totalResults}
+                totalPages={totalPages}
+                noResultsText={"No movies found."}
+                hasError={hasError}
+                errorMessage={"Oops something went wrong, please try again."}
+                fetchStatus={fetchStatus}
+              />
+            </Fragment>
           )}
-          page={page}
-          resultsPerPage={DEFAULT_RESULTS_AMOUNT}
-          onPaginationChange={setPage}
-          totalResults={totalResults}
-        />
+        </Loader>
       )}
-    </Fragment>
+    </div>
   );
 };
 
