@@ -1,6 +1,7 @@
 import React, { useEffect, Fragment } from "react";
 import useMovie from "hooks/useMovie";
 import Loader from "components/loader";
+import MovieImage from "components/movie-image";
 
 const MovieDescription = ({ id }) => {
   const { movie, getMovie, isFetching, hasError } = useMovie();
@@ -11,7 +12,7 @@ const MovieDescription = ({ id }) => {
   }, [id]);
 
   return (
-    <Loader show={isFetching} >
+    <Loader show={isFetching}>
       {title && (
         <Fragment>
           <h3>Title:</h3>
@@ -24,12 +25,11 @@ const MovieDescription = ({ id }) => {
           {overview}
         </Fragment>
       )}
-      {posterPath && (
-        <Fragment>
-          <h3>image</h3>
-          {posterPath}
-        </Fragment>
-      )}
+
+      {posterPath && <Fragment>
+        <h3>Image:</h3>
+        <MovieImage path={posterPath} />
+      </Fragment> }
     </Loader>
   );
 };

@@ -46,7 +46,6 @@ const ResultsList = ({
   const showNoResultsMessage =
     noResultsText && results.length === 0 && !hasError;
   const showErrorMessage = hasError && errorMessage;
-  console.log("show error messge", hasError, showErrorMessage);
 
   return (
     <div className={className}>
