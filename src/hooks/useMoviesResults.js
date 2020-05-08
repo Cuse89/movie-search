@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createUrlParams, getUrlSearchParam } from "../utils/helpers";
-import { API_KEY, BASE_URL } from "../utils/constants";
+import { API_KEY, BASE_URL, FETCH_STATUSES } from "../utils/constants";
 
 const useMoviesResults = () => {
   const [movies, setMovies] = useState([]);
@@ -9,7 +9,7 @@ const useMoviesResults = () => {
     totalPages: 0,
     totalResults: 0
   });
-  const [isFetching, setIsFetching] = useState(false);
+  const [fetchStatus, setFetchStatus] = useState(FETCH_STATUSES.READY);
   const [hasError, setHasError] = useState(false);
 
   const modelMovies = movies =>
@@ -36,21 +36,21 @@ const useMoviesResults = () => {
   const getMovies = queryParams => {
     const urlParams = createUrlParams(queryParams);
     const url = `${BASE_URL}search/movie?api_key=${API_KEY}&${urlParams}`;
-    setIsFetching(true);
+    setFetchStatus("fetching");
     fetch(url)
       .then(res => res.json())
       .then(response => {
-        setIsFetching(false);
         handleSetResponse(response);
+        setFetchStatus(FETCH_STATUSES.COMPLETE);
       })
       .catch(err => {
-        setIsFetching(false);
+        setFetchStatus(FETCH_STATUSES.COMPLETE);
         // handle other error actions here
         setHasError(true);
       });
   };
 
-  return { movies, getMovies, pagination, isFetching, hasError };
+  return { movies, getMovies, pagination, fetchStatus, hasError };
 };
 
 export default useMoviesResults;

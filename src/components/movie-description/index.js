@@ -2,9 +2,10 @@ import React, { useEffect, Fragment } from "react";
 import useMovie from "hooks/useMovie";
 import Loader from "components/loader";
 import MovieImage from "components/movie-image";
+import { FETCH_STATUSES } from "utils/constants";
 
 const MovieDescription = ({ id }) => {
-  const { movie, getMovie, isFetching, hasError } = useMovie();
+  const { movie, getMovie, fetchStatus, hasError } = useMovie();
   const { overview, posterPath, title } = movie;
 
   useEffect(() => {
@@ -12,7 +13,7 @@ const MovieDescription = ({ id }) => {
   }, [id]);
 
   return (
-    <Loader show={isFetching}>
+    <Loader show={fetchStatus === FETCH_STATUSES.FETCHING}>
       {title && (
         <Fragment>
           <h3>Title:</h3>
@@ -26,10 +27,12 @@ const MovieDescription = ({ id }) => {
         </Fragment>
       )}
 
-      {posterPath && <Fragment>
-        <h3>Image:</h3>
-        <MovieImage path={posterPath} />
-      </Fragment> }
+      {posterPath && (
+        <Fragment>
+          <h3>Image:</h3>
+          <MovieImage path={posterPath} />
+        </Fragment>
+      )}
     </Loader>
   );
 };

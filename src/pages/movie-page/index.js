@@ -1,16 +1,18 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import MovieDescription from "components/movie-description";
 import withBackArrow from "hocs/withBackArrow";
+
+import styles from "./MoviePage.module.scss"
 
 const MoviePage = () => {
   const { id } = useParams();
 
   return (
-    <Fragment>
+    <div>
       <MovieDescription id={id} />
-    </Fragment>
+    </div>
   );
 };
 
-export default withBackArrow({ withText: true })(MoviePage);
+export default withBackArrow({ withText: true, className: styles.root })(MoviePage);
