@@ -5,15 +5,14 @@ const useMovie = () => {
   const [movie, setMovie] = useState({});
   const [fetchStatus, setFetchStatus] = useState(FETCH_STATUSES.READY);
   const [hasError, setHasError] = useState(false);
-  const [notFound, setNotFound] = useState(false)
-  console.log({hasError})
+  const [notFound, setNotFound] = useState(false);
+
   const modelResponse = response => {
     const { title, overview, poster_path } = response;
     return { title, overview, posterPath: poster_path };
   };
 
   const handleSetResponse = response => {
-    console.log({response})
     setMovie(modelResponse(response));
   };
 
@@ -25,13 +24,11 @@ const useMovie = () => {
       .then(response => {
         setFetchStatus(FETCH_STATUSES.COMPLETE);
         if (response.status_code === 34) {
-          setNotFound(true)
+          setNotFound(true);
         }
         handleSetResponse(response);
-        console.log("no error")
       })
       .catch(err => {
-        console.log("errroir")
         setFetchStatus(FETCH_STATUSES.COMPLETE);
         // handle other error actions here
         setHasError(true);
