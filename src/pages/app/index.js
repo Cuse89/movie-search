@@ -8,11 +8,11 @@ const App = () => {
   return (
     <div>
       <BrowserRouter>
-          <Header/>
+        <Header />
         <Switch>
-          <Route exact path="/" render={() => <Redirect to="/search" />}   />
-<Route path="/search" component={SearchPage}/>
-          <Route path="/movie/:id" component={MoviePage}/>
+          <Route exact path="/" render={() => <Redirect to="/search" />} />
+          <Route path="/search" component={SearchPage} />
+          <Route path="/movie/:id" component={MoviePage} />
         </Switch>
       </BrowserRouter>
     </div>

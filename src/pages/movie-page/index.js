@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import MovieDescription from "components/movie-description";
-import withBackArrow from "hocs/withBackArrow";
-
-import styles from "./MoviePage.module.scss";
-import useMovie from "hooks/useMovie";
-import { FETCH_STATUSES } from "utils/constants";
 import Loader from "components/loader";
+import withBackArrow from "hocs/withBackArrow";
+import useMovie from "hooks/useMovie";
+
+import { FETCH_STATUSES } from "utils/constants";
+import styles from "./MoviePage.module.scss";
 
 const MoviePage = () => {
+  const history = useHistory();
   const { id } = useParams();
-  const { movie, getMovie, fetchStatus, hasError } = useMovie();
+  const { movie, getMovie, fetchStatus, hasError, notFound } = useMovie();
   const { overview, posterPath, title } = movie;
 
   useEffect(() => {
@@ -27,6 +28,12 @@ const MoviePage = () => {
         />
       )}
       {hasError && <h3>There was an error, please try again.</h3>}
+      {notFound && (
+        <h3>
+          Movie not found. Click
+          <span className={styles.link} onClick={() => history.goBack()}> here</span> to go back
+        </h3>
+      )}
     </Loader>
   );
 };
