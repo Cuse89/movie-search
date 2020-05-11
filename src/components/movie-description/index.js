@@ -1,7 +1,8 @@
 import React, { Fragment } from "react";
+import PropTypes from "prop-types";
 import MovieImage from "components/movie-image";
 
-const MovieDescription = ({ overview, posterPath, title }) => (
+const MovieDescription = ({ title, overview, posterPath }) => (
   <Fragment>
     {title && (
       <Fragment>
@@ -23,5 +24,17 @@ const MovieDescription = ({ overview, posterPath, title }) => (
     )}
   </Fragment>
 );
+
+MovieDescription.defaultProps = {
+  title: "",
+  overview: "",
+  posterPath: ""
+};
+
+MovieDescription.propTypes = {
+  title: PropTypes.string,
+  overview: PropTypes.string,
+  posterPath: PropTypes.string
+};
 
 export default MovieDescription;
