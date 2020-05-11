@@ -21,8 +21,11 @@ const InputForm = ({
   };
   const handleOnSubmit = e => {
     e.preventDefault();
-    onSubmit(inputValue);
-    setInputValue("");
+    if (onSubmit) {
+      onSubmit(inputValue);
+      setInputValue("");
+    }
+
   };
 
   return (

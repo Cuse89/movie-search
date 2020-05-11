@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Pagination from "components/pagination";
 
 const ResultsList = ({
@@ -56,6 +57,28 @@ const ResultsList = ({
       {showErrorMessage && <h3>{errorMessage}</h3>}
     </div>
   );
+};
+
+ResultsList.defaultProps = {
+  results: [],
+  onPaginationChange: () => {},
+  resultsPerPage: 10,
+  noResultsText: "No results",
+  errorMessage: "An error has occurred."
+};
+
+ResultsList.propTypes = {
+  className: PropTypes.string,
+  results: PropTypes.array,
+  resultItem: PropTypes.node.isRequired,
+  onPaginationChange: PropTypes.func,
+  resultsPerPage: PropTypes.number,
+  totalResults: PropTypes.number,
+  totalPages: PropTypes.number,
+  page: PropTypes.number,
+  noResultsText: PropTypes.string,
+  hasError: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string
 };
 
 export default ResultsList;
