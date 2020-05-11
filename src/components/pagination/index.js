@@ -10,27 +10,25 @@ const Pagination = ({
   onPreviousPageClick,
   onNextPageClick,
   totalPages
-}) => {
-  return (
-    <div className={styles.root}>
-      {page > 1 && (
-        <FontAwesomeIcon
-          className={styles.leftArrow}
-          icon={faArrowLeft}
-          onClick={onPreviousPageClick}
-        />
-      )}
-      Page {page} out of {totalPages}
-      {page < totalPages && (
-        <FontAwesomeIcon
-          className={styles.rightArrow}
-          icon={faArrowRight}
-          onClick={onNextPageClick}
-        />
-      )}
-    </div>
-  );
-};
+}) => (
+  <div className={styles.root}>
+    {page > 1 && (
+      <FontAwesomeIcon
+        className={styles.leftArrow}
+        icon={faArrowLeft}
+        onClick={onPreviousPageClick}
+      />
+    )}
+    Page {page} out of {totalPages}
+    {page < totalPages && (
+      <FontAwesomeIcon
+        className={styles.rightArrow}
+        icon={faArrowRight}
+        onClick={onNextPageClick}
+      />
+    )}
+  </div>
+);
 
 Pagination.propTypes = {
   page: PropTypes.number.isRequired,
