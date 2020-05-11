@@ -21,6 +21,8 @@ const SearchPage = ({ history }) => {
   const [query, setQuery] = useQueryState("query", "");
   const [page, setPage] = useQueryState("page", 1);
 
+  console.log("movies", movies)
+
   useEffect(() => {
     if (query) {
       getMovies({ query, page });
