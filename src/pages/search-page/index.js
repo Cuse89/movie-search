@@ -4,7 +4,7 @@ import useMoviesResults from "hooks/useMoviesResults";
 import InputForm from "components/input-form";
 import ResultsList from "components/results-list";
 import MovieItem from "components/movie-item";
-import {DEFAULT_RESULTS_AMOUNT, FETCH_STATUSES} from "utils/constants";
+import { DEFAULT_RESULTS_AMOUNT, FETCH_STATUSES } from "utils/constants";
 import Loader from "components/loader";
 
 import styles from "./SearchPage.module.scss";
@@ -20,6 +20,8 @@ const SearchPage = ({ history }) => {
   const { totalResults, totalPages } = pagination;
   const [query, setQuery] = useQueryState("query", "");
   const [page, setPage] = useQueryState("page", 1);
+
+  console.log("movies", movies);
 
   useEffect(() => {
     if (query) {
@@ -68,7 +70,6 @@ const SearchPage = ({ history }) => {
                 noResultsText={"No movies found."}
                 hasError={hasError}
                 errorMessage={"Oops something went wrong, please try again."}
-                fetchStatus={fetchStatus}
               />
             </Fragment>
           )}

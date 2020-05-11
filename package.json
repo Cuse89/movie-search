@@ -12,12 +12,14 @@
     "@testing-library/user-event": "^7.1.2",
     "classnames": "^2.2.6",
     "gh-pages": "^2.2.0",
+    "jest-fetch-mock": "^3.0.3",
     "node-sass": "4.13.1",
     "prettier": "1.19.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "react-test-renderer": "^16.13.1",
     "use-location-state": "^2.3.1"
   },
   "scripts": {

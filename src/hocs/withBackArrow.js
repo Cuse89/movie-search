@@ -5,7 +5,7 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./withGoBack.module.scss";
 
-const withBackArrow = ({ withText, className }) => WrappedComponent => ({
+const withBackArrow = ({ withText, className, ...props }) => WrappedComponent => ({
   history
 }) => (
   <div className={className}>
@@ -13,7 +13,7 @@ const withBackArrow = ({ withText, className }) => WrappedComponent => ({
       <FontAwesomeIcon icon={faArrowLeft} size={"1x"} />
       {withText && <p className={styles.goBackText}>Go back</p>}
     </div>
-    <WrappedComponent />
+    <WrappedComponent {...props} />
   </div>
 );
 
