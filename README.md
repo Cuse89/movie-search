@@ -59,7 +59,6 @@ I prefer to shallow test, meaning for SearchPage.js I will only test what is the
 expect the values of the props being passed down to have changed, rather than what is seen on the screen (the responsibility
 of MovieItem).
 If I had more time I would test each of the smaller components individually, again isolated.
-For more 
 
 
 
